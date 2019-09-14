@@ -1,8 +1,13 @@
 <template>
-  <app-server-status></app-server-status>
+    <div class="container">
+    
+    </div>
 </template>
 
 <script>
+    export default {
+        
+    }
 </script>
 
 <style>
