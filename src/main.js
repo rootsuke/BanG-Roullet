@@ -1,7 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from 'vue/dist/vue.esm'
+import Roullet from './components/roullet.vue'
+
+Vue.component('roullet', Roullet)
 
 new Vue({
-  el: '#app',
-  render: h => h(App)
+  el: '#app'
 })
