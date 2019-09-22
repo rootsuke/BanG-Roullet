@@ -14,7 +14,8 @@
                 canvas_height: 300,
                 context: null,
                 element: "",
-                roullet_elements: []
+                roullet_elements: [],
+                colors: []
             }
         },
         mounted() {
@@ -37,14 +38,21 @@
                 // ルーレットの描画が重複しないように初期化する
                 context.clearRect(0, 0, this.canvas_width, this.canvas_height)
                 var deg = 0;
-                this.roullet_elements.forEach(el => {
+                const len = this.roullet_elements.length
+                // ルーレットの要素の角度
+                const deg_per_el = 360 / len
+
+                for(var i = 0; i < len; i++) {
+                    const el = this.roullet_elements[i]
                     context.beginPath()
                     context.moveTo(150, 150);
                     context.fillStyle = el.title;
-                    context.arc(150, 150, 100, deg / 180 * Math.PI, (deg + 90) / 180 * Math.PI, false);
+                    // 描画開始座標を90度ずらす
+                    context.arc(150, 150, 100, (deg - 90) / 180 * Math.PI, (deg + deg_per_el - 90) / 180 * Math.PI, false);
                     context.fill()
-                    deg += 90
-                })
+                    // 次のルーレットの要素の描画開始座標を更新
+                    deg += deg_per_el
+                }
             }
         },
     }
