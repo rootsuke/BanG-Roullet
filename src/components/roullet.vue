@@ -15,7 +15,11 @@
                 context: null,
                 element: "",
                 roullet_elements: [],
-                colors: []
+                colors: [{ chara: 'kasumi',   color: '#FFBBA6' }, { chara: 'otae',    color: '#7FBBEE' }, { chara: 'rimi',    color: '#FFAADD' }, { chara: 'saya',  color: '#FFE588' }, { charr: 'arisa',   color: '#D4B2EE' },
+                         { chara: 'ran',      color: '#F67F90' }, { chara: 'mocha',   color: '#7FE5D4' }, { chara: 'himari',  color: '#FFCCCC' }, { chara: 'soiya', color: '#DD7F99' }, { charr: 'tsugu',   color: '#FFF6C3' },
+                         { chara: 'maruyama', color: '#FFC3DD' }, { chara: 'hina',    color: '#AAEEF6' }, { chara: 'chisato', color: '#FFF6D4' }, { chara: 'maya',  color: '#CCEEC3' }, { charr: 'bushido', color: '#EEDDFF' },
+                         { chara: 'yukina',   color: '#C388C3' }, { chara: 'sayo',    color: '#7FD4DD' }, { chara: 'risa',    color: '#EE907F' }, { chara: 'ako',   color: '#EE7FC3' }, { charr: 'rinko',   color: '#DDDDDD' },
+                         { chara: 'kokoro',   color: '#FFF690' }, { chara: 'hakanai', color: '#D499E5' }, { chara: 'hagu',    color: '#FFCC90' }, { chara: 'kanon', color: '#A1EEFF' }, { charr: 'misaki',  color: '#84B1CD' } ]
             }
         },
         mounted() {
