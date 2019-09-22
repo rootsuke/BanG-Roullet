@@ -59,7 +59,7 @@
                     context.beginPath()
                     context.moveTo(150, 150);
                     context.fillStyle = this.colors[i].color;
-                    context.arc(150, 150, 100, (offset) / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
+                    context.arc(150, 150, 100, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
                     context.fill()
                     // 次のルーレットの要素の描画開始座標を更新
                     offset += deg_per_el
@@ -80,8 +80,27 @@
                     if (speed < 0.4) {
                         clearInterval(roullet)
                         this.isStop = false
+                        const current_deg = 360 - (offset % 360)
+                        // 完全に停止してから結果を表示する
+                        setTimeout(() => {
+                            this.render_result(current_deg)
+                        }, 30);
+                        console.log(current_deg)
                     }
                 }, 10);
+            },
+            render_result(current_deg) {
+                const len = this.roullet_elements.length
+                const deg_per_el = 360 / len
+                var start_deg = 0
+                for(var i = 0; i < len; i++) {
+                    var end_deg = start_deg + deg_per_el
+                    if (start_deg <= current_deg && current_deg < end_deg) {
+                        alert(this.roullet_elements[i].title)
+                        break
+                    }
+                    start_deg += deg_per_el
+                }
             },
             stop_roullet() {
                 this.isStop = true
