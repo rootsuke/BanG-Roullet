@@ -8,6 +8,8 @@
 </template>
 
 <script>
+    import colors from '../lib/colors';
+
     export default {
         data() {
             return {
@@ -18,11 +20,7 @@
                 roullet_elements: [],
                 isStart: false,
                 isSlowdown: false,
-                colors: [{ chara: 'kasumi',   color: '#FFBBA6' }, { chara: 'otae',    color: '#7FBBEE' }, { chara: 'rimi',    color: '#FFAADD' }, { chara: 'saya',  color: '#FFE588' }, { charr: 'arisa',   color: '#D4B2EE' },
-                         { chara: 'ran',      color: '#F67F90' }, { chara: 'mocha',   color: '#7FE5D4' }, { chara: 'himari',  color: '#FFCCCC' }, { chara: 'soiya', color: '#DD7F99' }, { charr: 'tsugu',   color: '#FFF6C3' },
-                         { chara: 'maruyama', color: '#FFC3DD' }, { chara: 'hina',    color: '#AAEEF6' }, { chara: 'chisato', color: '#FFF6D4' }, { chara: 'maya',  color: '#CCEEC3' }, { charr: 'bushido', color: '#EEDDFF' },
-                         { chara: 'yukina',   color: '#C388C3' }, { chara: 'sayo',    color: '#7FD4DD' }, { chara: 'risa',    color: '#EE907F' }, { chara: 'ako',   color: '#EE7FC3' }, { charr: 'rinko',   color: '#DDDDDD' },
-                         { chara: 'kokoro',   color: '#FFF690' }, { chara: 'hakanai', color: '#D499E5' }, { chara: 'hagu',    color: '#FFCC90' }, { chara: 'kanon', color: '#A1EEFF' }, { charr: 'misaki',  color: '#84B1CD' } ]
+                colors: colors()
             }
         },
         mounted() {
@@ -39,7 +37,7 @@
                     return
                 }
                 // 要素をルーレットに追加
-                var el = { title: this.element }
+                let el = { title: this.element }
                 this.roullet_elements.push(el)
                 this.element = ""
                 // ルーレットを描画
@@ -55,7 +53,7 @@
                 // ルーレットの要素の角度
                 const deg_per_el = 360 / len
 
-                for(var i = 0; i < len; i++) {
+                for(let i = 0; i < len; i++) {
                     const el = this.roullet_elements[i]
                     context.beginPath()
                     context.moveTo(150, 150);
@@ -67,11 +65,11 @@
                 }
             },
             start_roullet() {
-                var offset = 0
-                var speed = 1
-                var brake = 1
+                let offset = 0
+                let speed = 1
+                let brake = 1
                 this.isStart = true
-                var roullet = setInterval(() => {
+                let roullet = setInterval(() => {
                     if (this.isSlowdown) {
                         brake += 0.13
                     }
@@ -92,9 +90,9 @@
             render_result(current_deg) {
                 const len = this.roullet_elements.length
                 const deg_per_el = 360 / len
-                var start_deg = 0
-                for(var i = 0; i < len; i++) {
-                    var end_deg = start_deg + deg_per_el
+                let start_deg = 0
+                for(let i = 0; i < len; i++) {
+                    let end_deg = start_deg + deg_per_el
                     if (start_deg <= current_deg && current_deg < end_deg) {
                         alert(this.roullet_elements[i].title)
                         break
