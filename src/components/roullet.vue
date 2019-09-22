@@ -2,8 +2,8 @@
     <div>
         <canvas id="canvas"></canvas>
         <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
-        <button @click="start_roullet()">start</button>
-        <button @click="stop_roullet()">stop</button>
+        <button v-if="roullet_elements.length != 0 && !isStart" @click="start_roullet()">start</button>
+        <button v-if="isStart" @click="stop_roullet()">stop</button>
     </div>
 </template>
 
@@ -16,7 +16,8 @@
                 context: null,
                 element: "",
                 roullet_elements: [],
-                isStop: false,
+                isStart: false,
+                isSlowdown: false,
                 colors: [{ chara: 'kasumi',   color: '#FFBBA6' }, { chara: 'otae',    color: '#7FBBEE' }, { chara: 'rimi',    color: '#FFAADD' }, { chara: 'saya',  color: '#FFE588' }, { charr: 'arisa',   color: '#D4B2EE' },
                          { chara: 'ran',      color: '#F67F90' }, { chara: 'mocha',   color: '#7FE5D4' }, { chara: 'himari',  color: '#FFCCCC' }, { chara: 'soiya', color: '#DD7F99' }, { charr: 'tsugu',   color: '#FFF6C3' },
                          { chara: 'maruyama', color: '#FFC3DD' }, { chara: 'hina',    color: '#AAEEF6' }, { chara: 'chisato', color: '#FFF6D4' }, { chara: 'maya',  color: '#CCEEC3' }, { charr: 'bushido', color: '#EEDDFF' },
@@ -69,8 +70,9 @@
                 var offset = 0
                 var speed = 1
                 var brake = 1
+                this.isStart = true
                 var roullet = setInterval(() => {
-                    if (this.isStop) {
+                    if (this.isSlowdown) {
                         brake += 0.13
                     }
                     speed = 100 / brake
@@ -79,13 +81,11 @@
 
                     if (speed < 0.4) {
                         clearInterval(roullet)
-                        this.isStop = false
                         const current_deg = 360 - (offset % 360)
                         // 完全に停止してから結果を表示する
                         setTimeout(() => {
                             this.render_result(current_deg)
                         }, 30);
-                        console.log(current_deg)
                     }
                 }, 10);
             },
@@ -101,9 +101,11 @@
                     }
                     start_deg += deg_per_el
                 }
+                this.isSlowdown = false
+                this.isStart = false
             },
             stop_roullet() {
-                this.isStop = true
+                this.isSlowdown = true
             }
         },
     }
