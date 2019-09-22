@@ -1,7 +1,7 @@
 <template>
     <div>
         <canvas id="canvas"></canvas>
-        color: <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
+        <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
         {{roullet_elements}}
     </div>
 </template>
@@ -30,8 +30,13 @@
         },
         methods: {
             add_element_to_roullet() {
+                // 要素を25個までに制限する
+                if (this.roullet_elements.length >= 25) {
+                    alert('ルーレットの要素は25個までです')
+                    return
+                }
                 // 要素をルーレットに追加
-                var el = {title: this.element}
+                var el = { title: this.element }
                 this.roullet_elements.push(el)
                 this.element = ""
                 // ルーレットを描画
@@ -50,7 +55,7 @@
                     const el = this.roullet_elements[i]
                     context.beginPath()
                     context.moveTo(150, 150);
-                    context.fillStyle = el.title;
+                    context.fillStyle = this.colors[i].color;
                     // 描画開始座標を90度ずらす
                     context.arc(150, 150, 100, (deg - 90) / 180 * Math.PI, (deg + deg_per_el - 90) / 180 * Math.PI, false);
                     context.fill()
