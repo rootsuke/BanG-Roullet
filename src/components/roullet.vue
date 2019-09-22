@@ -2,7 +2,8 @@
     <div>
         <canvas id="canvas"></canvas>
         <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
-        {{roullet_elements}}
+        <button @click="start_roullet()">start</button>
+        <button @click="stop_roullet()">stop</button>
     </div>
 </template>
 
@@ -15,6 +16,7 @@
                 context: null,
                 element: "",
                 roullet_elements: [],
+                isStop: false,
                 colors: [{ chara: 'kasumi',   color: '#FFBBA6' }, { chara: 'otae',    color: '#7FBBEE' }, { chara: 'rimi',    color: '#FFAADD' }, { chara: 'saya',  color: '#FFE588' }, { charr: 'arisa',   color: '#D4B2EE' },
                          { chara: 'ran',      color: '#F67F90' }, { chara: 'mocha',   color: '#7FE5D4' }, { chara: 'himari',  color: '#FFCCCC' }, { chara: 'soiya', color: '#DD7F99' }, { charr: 'tsugu',   color: '#FFF6C3' },
                          { chara: 'maruyama', color: '#FFC3DD' }, { chara: 'hina',    color: '#AAEEF6' }, { chara: 'chisato', color: '#FFF6D4' }, { chara: 'maya',  color: '#CCEEC3' }, { charr: 'bushido', color: '#EEDDFF' },
@@ -42,11 +44,12 @@
                 // ルーレットを描画
                 this.draw_roullet();
             },
-            draw_roullet() {
+            draw_roullet(offset = 0) {
                 const context = this.context
                 // ルーレットの描画が重複しないように初期化する
                 context.clearRect(0, 0, this.canvas_width, this.canvas_height)
-                var deg = 0;
+                // 描画開始座標を90度ずらす
+                offset -= 90
                 const len = this.roullet_elements.length
                 // ルーレットの要素の角度
                 const deg_per_el = 360 / len
@@ -56,12 +59,32 @@
                     context.beginPath()
                     context.moveTo(150, 150);
                     context.fillStyle = this.colors[i].color;
-                    // 描画開始座標を90度ずらす
-                    context.arc(150, 150, 100, (deg - 90) / 180 * Math.PI, (deg + deg_per_el - 90) / 180 * Math.PI, false);
+                    context.arc(150, 150, 100, (offset) / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
                     context.fill()
                     // 次のルーレットの要素の描画開始座標を更新
-                    deg += deg_per_el
+                    offset += deg_per_el
                 }
+            },
+            start_roullet() {
+                var offset = 0
+                var speed = 1
+                var brake = 1
+                var roullet = setInterval(() => {
+                    if (this.isStop) {
+                        brake += 0.13
+                    }
+                    speed = 100 / brake
+                    offset += speed
+                    this.draw_roullet(offset)
+
+                    if (speed < 0.4) {
+                        clearInterval(roullet)
+                        this.isStop = false
+                    }
+                }, 10);
+            },
+            stop_roullet() {
+                this.isStop = true
             }
         },
     }
