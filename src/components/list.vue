@@ -15,20 +15,30 @@
 <script>
   export default {
     props: ['roullet_elements', 'isStart', 'colors'],
+
     data() {
       return {
         isEdit: false
       }
     },
+
     methods: {
       delete_element(index) {
-        // 削除する要素に使われている色を再度使えるようにする
         const color = this.roullet_elements[index].color;
-        this.colors.push(color);
         // 要素の削除
         this.roullet_elements.splice(index, 1);
-        // ルーレットを描画し直す
-        this.$emit('delete-element');
+        const len = this.roullet_elements.length;
+
+        if (len > 0) {
+          // 削除する要素に使われている色を再度使えるようにする
+          this.colors.push(color);
+          // ルーレットを描画し直す
+          this.$emit('delete-element');
+        } else if (len == 0) {
+          // 最後の要素を削除するときはルーレットの表示だけはそのままにする
+          // 最後の要素に使われていた色から始まるようにする
+          this.colors.unshift(color);
+        }
       }
     },
 

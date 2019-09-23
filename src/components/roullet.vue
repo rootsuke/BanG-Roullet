@@ -32,6 +32,7 @@
         colors: colors()
       }
     },
+
     mounted() {
       const canvas = document.getElementById('canvas')
       canvas.width = this.canvas_width;
@@ -39,6 +40,7 @@
       this.context = canvas.getContext('2d');
       this.init_roullet();
     },
+
     methods: {
       init_roullet() {
         const context = this.context;
@@ -48,6 +50,7 @@
         context.fill();
         this.draw_pointer();
       },
+
       draw_pointer() {
         const context = this.context;
         context.beginPath();
@@ -59,13 +62,12 @@
         context.stroke();
         context.fill();
       },
+
       add_element_to_roullet() {
-        // ルーレットが周っているときは要素の追加ができない
         if (this.isStart) {
+          // ルーレットが回っているときは要素を追加できない
           return
-        }
-        // 要素を25個までに制限する
-        if (this.roullet_elements.length >= 25) {
+        } else if (this.roullet_elements.length >= 25) {
           alert('ルーレットの要素は25個までです')
           return
         }
@@ -77,11 +79,12 @@
         // ルーレットを描画
         this.draw_roullet();
       },
+
       draw_roullet(offset = 0) {
         const context = this.context
         // ルーレットの描画が重複しないように初期化する
         context.clearRect(0, 0, this.canvas_width, this.canvas_height)
-        // ルーレットの描画開始座標を90度ずらす
+        // ルーレットのピンの位置を始点にするために90度ずらす
         offset -= 90
         const len = this.roullet_elements.length
         // ルーレットの要素の角度
@@ -94,16 +97,18 @@
           context.fillStyle = el.color;
           context.arc(150, 150, 100, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
           context.fill()
-          // 次のルーレットの要素の描画開始座標を更新
+          // 次のルーレットの要素を描画する始点を更新
           offset += deg_per_el
         }
         this.draw_pointer();
       },
+
       start_roullet() {
         let offset = 0
         let speed = 1
         let brake = 1
         this.isStart = true
+
         let roullet = setInterval(() => {
           if (this.isSlowdown) {
             brake += 1 / speed
@@ -122,10 +127,12 @@
           }
         }, 10);
       },
+
       render_result(current_deg) {
         const len = this.roullet_elements.length
         const deg_per_el = 360 / len
         let start_deg = 0
+
         for(let i = 0; i < len; i++) {
           let end_deg = start_deg + deg_per_el
           if (start_deg <= current_deg && current_deg < end_deg) {
@@ -134,9 +141,11 @@
           }
           start_deg += deg_per_el
         }
+
         this.isSlowdown = false
         this.isStart = false
       },
+
       stop_roullet() {
         this.isSlowdown = true
       }
