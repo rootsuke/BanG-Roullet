@@ -1,27 +1,27 @@
 export default () => {
-  return [{ chara: 'kasumi',   color: '#FFBBA6' },
-          { chara: 'otae',     color: '#7FBBEE' },
-          { chara: 'rimi',     color: '#FFAADD' },
-          { chara: 'saya',     color: '#FFE588' },
-          { charr: 'arisa',    color: '#D4B2EE' },
-          { chara: 'ran',      color: '#F67F90' },
-          { chara: 'mocha',    color: '#7FE5D4' },
-          { chara: 'himari',   color: '#FFCCCC' },
-          { chara: 'soiya',    color: '#DD7F99' },
-          { charr: 'tsugu',    color: '#FFF6C3' },
-          { chara: 'maruyama', color: '#FFC3DD' },
-          { chara: 'hina',     color: '#AAEEF6' },
-          { chara: 'chisato',  color: '#FFF6D4' },
-          { chara: 'maya',     color: '#CCEEC3' },
-          { charr: 'bushido',  color: '#EEDDFF' },
-          { chara: 'yukina',   color: '#C388C3' },
-          { chara: 'sayo',     color: '#7FD4DD' },
-          { chara: 'risa',     color: '#EE907F' },
-          { chara: 'ako',      color: '#EE7FC3' },
-          { charr: 'rinko',    color: '#DDDDDD' },
-          { chara: 'kokoro',   color: '#FFF690' },
-          { chara: 'hakanai',  color: '#D499E5' },
-          { chara: 'hagu',     color: '#FFCC90' },
-          { chara: 'kanon',    color: '#A1EEFF' },
-          { charr: 'misaki',   color: '#84B1CD' }]
+  return ['#FFBBA6', // kasumi
+          '#7FBBEE', // otae
+          '#FFAADD', // rimi
+          '#FFE588', // saya
+          '#D4B2EE', // chomama
+          '#F67F90', // red_mesh
+          '#7FE5D4', // bread_jankie
+          '#FFCCCC', // himari
+          '#DD7F99', // soiya
+          '#FFF6C3', // tsugu
+          '#FFC3DD', // maruyama
+          '#AAEEF6', // runnnn!!
+          '#FFF6D4', // chisato
+          '#CCEEC3', // huhehe...
+          '#EEDDFF', // bushidoooooo!!!
+          '#C388C3', // nyaaan_chan
+          '#7FD4DD', // potato
+          '#EE907F', // risa
+          '#EE7FC3', // ako
+          '#DDDDDD', // rinko
+          '#FFF690', // kokoro
+          '#D499E5', // hakanai
+          '#FFCC90', // hagu
+          '#A1EEFF', // hueee...
+          '#84B1CD'] // girl_in_the_michelle
 }

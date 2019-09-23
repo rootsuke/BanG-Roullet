@@ -8,17 +8,16 @@
       <button v-if="roullet_elements.length != 0 && !isStart" @click="start_roullet()">start</button>
       <button v-if="isStart" @click="stop_roullet()">stop</button>
     </div>
-    <ul>
-      <li v-for="(element, i) in roullet_elements" :key="i">
-        <span :style="{'background-color': element.color}" class="label"></span>
-        {{ element.title }}
-      </li>
-    </ul>
+    <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @delete-element="draw_roullet()"></list>
   </div>
 </template>
 
 <script>
+  import Vue from 'vue/dist/vue.esm';
   import colors from '../lib/colors';
+  import list from './list';
+
+  Vue.component('list', list);
 
   export default {
     data() {
@@ -44,7 +43,7 @@
       init_roullet() {
         const context = this.context;
         context.beginPath();
-        context.fillStyle = this.colors[0].color;
+        context.fillStyle = this.colors[0];
         context.arc(150, 150, 100, 0, 2 * Math.PI, false);
         context.fill();
         this.draw_pointer();
@@ -61,13 +60,18 @@
         context.fill();
       },
       add_element_to_roullet() {
+        // ルーレットが周っているときは要素の追加ができない
+        if (this.isStart) {
+          return
+        }
         // 要素を25個までに制限する
         if (this.roullet_elements.length >= 25) {
           alert('ルーレットの要素は25個までです')
           return
         }
         // 要素をルーレットに追加
-        let el = { title: this.element }
+        const color = this.colors.shift()
+        let el = { title: this.element, isEdit: false, color: color }
         this.roullet_elements.push(el)
         this.element = ""
         // ルーレットを描画
@@ -85,11 +89,9 @@
 
         for(let i = 0; i < len; i++) {
           const el = this.roullet_elements[i];
-          const color = this.colors[i].color;
-          el.color = color;
           context.beginPath()
           context.moveTo(150, 150);
-          context.fillStyle = color;
+          context.fillStyle = el.color;
           context.arc(150, 150, 100, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
           context.fill()
           // 次のルーレットの要素の描画開始座標を更新
@@ -143,13 +145,4 @@
 </script>
 
 <style>
-  li {
-    list-style: none;
-  }
-
-  .label {
-    width: 15px;
-    height: 15px;
-    display: inline-block;
-  }
 </style>
