@@ -106,13 +106,13 @@
         this.isStart = true
         let roullet = setInterval(() => {
           if (this.isSlowdown) {
-            brake += 0.13
+            brake += 1 / speed
           }
-          speed = 100 / brake
+          speed = 85 / brake
           offset += speed
           this.draw_roullet(offset)
 
-          if (speed < 0.4) {
+          if (speed < 0.05) {
             clearInterval(roullet)
             const current_deg = 360 - (offset % 360)
             // 完全に停止してから結果を表示する
