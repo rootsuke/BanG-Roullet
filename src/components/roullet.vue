@@ -8,7 +8,7 @@
       <button v-if="roullet_elements.length != 0 && !isStart" @click="start_roullet()">start</button>
       <button v-if="isStart" @click="stop_roullet()">stop</button>
     </div>
-    <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @delete-element="draw_roullet()"></list>
+    <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
   </div>
 </template>
 
@@ -73,7 +73,7 @@
         }
         // 要素をルーレットに追加
         const color = this.colors.shift()
-        let el = { title: this.element, isEdit: false, color: color }
+        let el = { title: this.element, isEdit: false, color: color, weight: 1 }
         this.roullet_elements.push(el)
         this.element = ""
         // ルーレットを描画
@@ -86,12 +86,15 @@
         context.clearRect(0, 0, this.canvas_width, this.canvas_height)
         // ルーレットのピンの位置を始点にするために90度ずらす
         offset -= 90
+        const sum_of_weight = this.roullet_elements.reduce((acc, el) => { return acc + el.weight }, 0)
         const len = this.roullet_elements.length
-        // ルーレットの要素の角度
-        const deg_per_el = 360 / len
+        // ウェイトごとの角度
+        const deg_per_weight = 360 / sum_of_weight
 
         for(let i = 0; i < len; i++) {
           const el = this.roullet_elements[i];
+          // ルーレットの要素ごとの角度
+          const deg_per_el = deg_per_weight * el.weight;
           context.beginPath()
           context.moveTo(150, 150);
           context.fillStyle = el.color;
