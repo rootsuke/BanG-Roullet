@@ -133,13 +133,16 @@
 
       render_result(current_deg) {
         const len = this.roullet_elements.length
-        const deg_per_el = 360 / len
+        const sum_of_weight = this.roullet_elements.reduce((acc, el) => { return acc + el.weight }, 0)
+        const deg_per_weight = 360 / sum_of_weight
         let start_deg = 0
 
         for(let i = 0; i < len; i++) {
+          const el = this.roullet_elements[i];
+          const deg_per_el = deg_per_weight * el.weight;
           let end_deg = start_deg + deg_per_el
           if (start_deg <= current_deg && current_deg < end_deg) {
-            alert(this.roullet_elements[i].title)
+            alert(el.title)
             break
           }
           start_deg += deg_per_el
