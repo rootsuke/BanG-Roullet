@@ -5,7 +5,7 @@
     </div>
     <div>
       <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
-      <button v-if="roullet_elements.length != 0 && !isStart" @click="start_roullet()">start</button>
+      <button v-if="element_count != 0 && !isStart" @click="start_roullet()">start</button>
       <button v-if="isStart" @click="stop_roullet()">stop</button>
     </div>
     <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
@@ -41,6 +41,16 @@
       this.init_roullet();
     },
 
+    computed: {
+      sum_of_weight() {
+        return this.roullet_elements.reduce((acc, el) => { return acc + el.weight }, 0)
+      },
+
+      element_count() {
+        return this.roullet_elements.length
+      }
+    },
+
     methods: {
       init_roullet() {
         const context = this.context;
@@ -67,13 +77,13 @@
         if (this.isStart) {
           // ルーレットが回っているときは要素を追加できない
           return
-        } else if (this.roullet_elements.length >= 25) {
+        } else if (this.element_count >= 25) {
           alert('ルーレットの要素は25個までです')
           return
         }
         // 要素をルーレットに追加
         const color = this.colors.shift()
-        let el = { title: this.element, isEdit: false, color: color, weight: 1 }
+        let el = { title: this.element, isEdit: false, color: color, weight: 5 }
         this.roullet_elements.push(el)
         this.element = ""
         // ルーレットを描画
@@ -86,12 +96,10 @@
         context.clearRect(0, 0, this.canvas_width, this.canvas_height)
         // ルーレットのピンの位置を始点にするために90度ずらす
         offset -= 90
-        const sum_of_weight = this.roullet_elements.reduce((acc, el) => { return acc + el.weight }, 0)
-        const len = this.roullet_elements.length
         // ウェイトごとの角度
-        const deg_per_weight = 360 / sum_of_weight
+        const deg_per_weight = 360 / this.sum_of_weight
 
-        for(let i = 0; i < len; i++) {
+        for(let i = 0; i < this.element_count; i++) {
           const el = this.roullet_elements[i];
           // ルーレットの要素ごとの角度
           const deg_per_el = deg_per_weight * el.weight;
@@ -132,12 +140,10 @@
       },
 
       render_result(current_deg) {
-        const len = this.roullet_elements.length
-        const sum_of_weight = this.roullet_elements.reduce((acc, el) => { return acc + el.weight }, 0)
-        const deg_per_weight = 360 / sum_of_weight
+        const deg_per_weight = 360 / this.sum_of_weight
         let start_deg = 0
 
-        for(let i = 0; i < len; i++) {
+        for(let i = 0; i < this.element_count; i++) {
           const el = this.roullet_elements[i];
           const deg_per_el = deg_per_weight * el.weight;
           let end_deg = start_deg + deg_per_el
