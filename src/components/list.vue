@@ -28,38 +28,35 @@
 
     methods: {
       delete_element(index) {
-        const color = this.roullet_elements[index].color;
+        const color = this.roullet_elements[index].color
         // 要素の削除
-        this.roullet_elements.splice(index, 1);
-        const len = this.roullet_elements.length;
+        this.roullet_elements.splice(index, 1)
+        const len = this.roullet_elements.length
+        // 削除する要素に使われている色を再度使えるようにする
+        this.colors.unshift(color)
 
         if (len > 0) {
-          // 削除する要素に使われている色を再度使えるようにする
-          this.colors.push(color);
           // ルーレットを描画し直す
-          this.redraw_roullet();
-        } else if (len == 0) {
-          // 最後の要素を削除するときはルーレットの表示だけはそのままにする
-          // 最後の要素に使われていた色から始まるようにする
-          this.colors.unshift(color);
+          // 最後の要素を削除するときはそのままにしておく
+          this.redraw_roullet()
         }
       },
 
       increase_weight(index) {
-        this.roullet_elements[index].weight ++;
-        this.redraw_roullet();
+        this.roullet_elements[index].weight ++
+        this.redraw_roullet()
       },
 
       decrease_weight(index) {
-        let weight = this.roullet_elements[index].weight;
+        let weight = this.roullet_elements[index].weight
         if (weight > 1) {
-          this.roullet_elements[index].weight --;
+          this.roullet_elements[index].weight --
         }
-        this.redraw_roullet();
+        this.redraw_roullet()
       },
 
       redraw_roullet() {
-        this.$emit('elements-edited');
+        this.$emit('elements-edited')
       }
     },
 
