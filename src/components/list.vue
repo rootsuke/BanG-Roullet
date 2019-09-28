@@ -1,6 +1,6 @@
 <template>
   <div id="elements">
-      <div v-for="(e, i) in roullet_elements" :key="i" class="element flex">
+      <div v-for="(e, i) in roullet_elements" :key="i" class="element flex flex-center">
         <div :style="{'background-color': e.color}" class="label"></div>
         <div class="title">
           <input v-if="e.isEdit" v-model="e.title" @keypress.enter="e.isEdit = false" type="text">
@@ -76,8 +76,7 @@
     width: 400px;
   }
 
-  .flex {
-    display: flex;
+  .flex-center {
     align-items: center;
   }
 

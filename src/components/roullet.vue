@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="flex">
     <div>
       <canvas id="canvas"></canvas>
     </div>
@@ -7,8 +7,8 @@
       <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
       <button v-if="element_count != 0 && !isStart" @click="start_roullet()">start</button>
       <button v-if="isStart" @click="stop_roullet()">stop</button>
+      <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
     </div>
-    <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
   </div>
 </template>
 
@@ -22,8 +22,12 @@
   export default {
     data() {
       return {
-        canvas_width: 300,
-        canvas_height: 300,
+        canvas: {
+          width: 600,
+          height: 600
+        },
+        center: 300,
+        r: 250,
         context: null,
         element: "",
         roullet_elements: [],
@@ -35,8 +39,8 @@
 
     mounted() {
       const canvas = document.getElementById('canvas')
-      canvas.width = this.canvas_width;
-      canvas.height = this.canvas_height;
+      canvas.width = this.canvas.width;
+      canvas.height = this.canvas.height;
       this.context = canvas.getContext('2d');
       this.init_roullet();
     },
@@ -56,7 +60,7 @@
         const context = this.context;
         context.beginPath();
         context.fillStyle = this.colors[0];
-        context.arc(150, 150, 100, 0, 2 * Math.PI, false);
+        context.arc(this.center, this.center, this.r, 0, 2 * Math.PI, false);
         context.fill();
         this.draw_pointer();
       },
@@ -64,12 +68,11 @@
       draw_pointer() {
         const context = this.context;
         context.beginPath();
-        context.moveTo(150, 55);
-        context.lineTo(155, 30);
-        context.lineTo(145, 30);
+        context.moveTo(300, 75);
+        context.lineTo(310, 25);
+        context.lineTo(290, 25);
         context.closePath();
-        context.fillStyle = 'black';
-        context.stroke();
+        context.fillStyle = '#5c5c5c';
         context.fill();
       },
 
@@ -93,7 +96,7 @@
       draw_roullet(offset = 0) {
         const context = this.context
         // ルーレットの描画が重複しないように初期化する
-        context.clearRect(0, 0, this.canvas_width, this.canvas_height)
+        context.clearRect(0, 0, this.canvas.width, this.canvas.height)
         // ルーレットのピンの位置を始点にするために90度ずらす
         offset -= 90
         // ウェイトごとの角度
@@ -104,9 +107,9 @@
           // ルーレットの要素ごとの角度
           const deg_per_el = deg_per_weight * el.weight;
           context.beginPath()
-          context.moveTo(150, 150);
+          context.moveTo(this.center, this.center);
           context.fillStyle = el.color;
-          context.arc(150, 150, 100, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
+          context.arc(this.center, this.center, this.r, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false);
           context.fill()
           // 次のルーレットの要素を描画する始点を更新
           offset += deg_per_el
@@ -166,4 +169,7 @@
 </script>
 
 <style>
+  .flex {
+    display: flex;
+  }
 </style>
