@@ -1,13 +1,16 @@
 <template>
-  <div class="flex">
-    <div>
-      <canvas id="canvas"></canvas>
-    </div>
-    <div>
-      <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
-      <button v-if="element_count != 0 && !isStart" @click="start_roullet()">start</button>
-      <button v-if="isStart" @click="on_click_stop_btn()">stop</button>
-      <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
+  <div>
+    <result-dialog :dialogVisible="dialogVisible" :result="result" @on-close-dialog="close_dialog()"></result-dialog>
+    <div class="flex">
+      <div>
+        <canvas id="canvas"></canvas>
+      </div>
+      <div>
+        <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
+        <button v-if="element_count != 0 && !isStart" @click="start_roullet()">start</button>
+        <button v-if="isStart" @click="on_click_stop_btn()">stop</button>
+        <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
+      </div>
     </div>
   </div>
 </template>
@@ -16,8 +19,10 @@
   import Vue from 'vue/dist/vue.esm'
   import colors from '../lib/colors'
   import list from './list'
+  import resultDialog from './result_dialog'
 
   Vue.component('list', list)
+  Vue.component('result-dialog', resultDialog)
 
   export default {
     data() {
@@ -33,7 +38,9 @@
         roullet_elements: [],
         isStart: false,
         isSlowdown: false,
-        colors: colors()
+        colors: colors(),
+        dialogVisible: false,
+        result: ""
       }
     },
 
@@ -156,7 +163,8 @@
           const deg_per_el = deg_per_weight * el.weight
           let end_deg = start_deg + deg_per_el
           if (start_deg <= current_deg && current_deg < end_deg) {
-            alert(el.title)
+            this.dialogVisible = true
+            this.result = el.title
             break
           }
           start_deg += deg_per_el
@@ -168,6 +176,9 @@
 
       on_click_stop_btn() {
         this.isSlowdown = true
+      },
+      close_dialog() {
+        this.dialogVisible = false
       }
     },
   }
