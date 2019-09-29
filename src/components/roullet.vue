@@ -67,12 +67,17 @@
         isSlowdown: false,
         colors: colors(),
         dialogVisible: false,
-        result: ""
+        result: "",
+        resize_timer_id: 0,
+        roullet_offset: 0
       }
     },
 
     mounted() {
-      window.addEventListener('resize',() => { this.resize_canvas() }, false)
+      window.addEventListener('resize',() => {
+        this.set_resize_timer()
+      }, false)
+
       const width = document.getElementById('canvas_container').clientWidth
       this.canvas.width = width
       this.canvas.height = width
@@ -102,6 +107,18 @@
     },
 
     methods: {
+      set_resize_timer() {
+        // タイマーが設定されていたらreturn
+        if (this.resize_timer_id) {
+          return
+        }
+        // 300ミリ秒ごとにcanvasをリサイズする
+        this.resize_timer_id = setTimeout(() => {
+          this.resize_timer_id = 0
+          this.resize_canvas()
+        }, 300)
+      },
+
       init_roullet() {
         const context = this.context
         context.beginPath()
