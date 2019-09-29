@@ -6,7 +6,7 @@
   .input_and_btn {
     padding: 45px 0;
     .el-input {
-      width: 75%;
+      width: 100%;
       margin-right: 5%;
     }
   }
@@ -27,14 +27,16 @@
       </div>
       <div class="col-sm-12 col-md-6">
           <div class="input_and_btn">
-            <div class="flex">
+            <div>
               <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
-              <div id="start_and_stop_btn">
-                <el-button v-if="element_count != 0 && !isStart" @click="start_roullet()" type="primary" size="mini">start</el-button>
-                <el-button v-if="isStart" @click="on_click_stop_btn()" type="warning" size="mini">stop</el-button>
+              <div class="flex">
+                <div id="start_and_stop_btn">
+                  <el-button v-if="element_count != 0 && !isStart" @click="start_roullet()" type="primary" size="mini">start</el-button>
+                  <el-button v-if="isStart" @click="on_click_stop_btn()" type="warning" size="mini">stop</el-button>
+                </div>
               </div>
             </div>
-            <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
+            <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
           </div>
       </div>
     </div>
@@ -154,7 +156,7 @@
         this.roullet_elements.push(el)
         this.element = ""
         // ルーレットを描画
-        this.draw_roullet()
+        this.draw_roullet(this.roullet_offset)
       },
       
       resize_canvas() {
@@ -167,7 +169,7 @@
         if (this.element_count == 0) {
           this.init_roullet()
         } else {
-          this.draw_roullet()
+          this.draw_roullet(this.roullet_offset)
         }
       },
 
@@ -209,6 +211,7 @@
           speed = 55 / brake
           offset += speed
           this.draw_roullet(offset)
+          this.roullet_offset = offset
 
           if (speed < 0.05) {
             clearInterval(roullet)
