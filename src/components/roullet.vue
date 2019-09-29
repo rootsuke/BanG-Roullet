@@ -3,16 +3,16 @@
     display: flex;
   }
 
+  .flex-end {
+    justify-content: flex-end;
+  }
+
   .input_and_btn {
     padding: 45px 0;
     .el-input {
       width: 100%;
       margin-right: 5%;
     }
-  }
-
-  #start_and_stop_btn {
-    margin-left: auto;
   }
 </style>
 
@@ -26,18 +26,18 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-          <div class="input_and_btn">
-            <div>
-              <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
-              <div class="flex">
-                <div id="start_and_stop_btn">
-                  <el-button v-if="element_count != 0 && !isStart" @click="start_roullet()" type="primary" size="mini">start</el-button>
-                  <el-button v-if="isStart" @click="on_click_stop_btn()" type="warning" size="mini">stop</el-button>
-                </div>
-              </div>
+        <div class="input_and_btn">
+          <div>
+            <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
+            <div class="flex flex-end">
+              <span v-if="show_reload_btn" @click="reload_roullet()" class="icon reload"><i class="fas fa-redo fa-2x"></i></span>
+              <span v-if="show_destroy_btn" @click="destroy_roullet()" class="icon destroy"><i class="fas fa-skull-crossbones fa-2x"></i></span>
+              <span v-if="show_start_btn" @click="start_roullet()" class="icon start"><i class="far fa-play-circle fa-2x"></i></span>
+              <span v-if="isStart" @click="on_click_stop_btn()" class="icon stop"><i class="far fa-stop-circle fa-2x"></i></span>
             </div>
-            <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
           </div>
+          <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +105,18 @@
 
       r() {
         return this.center - 25
+      },
+
+      show_start_btn() {
+        return this.element_count != 0 && !this.isStart
+      },
+
+      show_reload_btn() {
+        return this.element_count != 0 && !this.isStart && this.roullet_offset != 0
+      },
+
+      show_destroy_btn() {
+        return this.element_count != 0 && !this.isStart
       }
     },
 
@@ -130,16 +142,16 @@
         this.draw_pointer()
       },
 
-      draw_pointer() {
-        const c = this.center
-        const context = this.context
-        context.beginPath()
-        context.moveTo(c, 45)
-        context.lineTo(c+7, 5)
-        context.lineTo(c-7, 5)
-        context.closePath()
-        context.fillStyle = '#5c5c5c'
-        context.fill()
+      reload_roullet() {
+        this.roullet_offset = 0
+        this.draw_roullet()
+      },
+
+      destroy_roullet() {
+        this.roullet_elements = []
+        this.colors = colors()
+        this.roullet_offset = 0
+        this.init_roullet()
       },
 
       add_element_to_roullet() {
@@ -196,6 +208,18 @@
           offset += deg_per_el
         }
         this.draw_pointer()
+      },
+
+      draw_pointer() {
+        const c = this.center
+        const context = this.context
+        context.beginPath()
+        context.moveTo(c, 45)
+        context.lineTo(c+7, 5)
+        context.lineTo(c-7, 5)
+        context.closePath()
+        context.fillStyle = '#5c5c5c'
+        context.fill()
       },
 
       start_roullet() {
