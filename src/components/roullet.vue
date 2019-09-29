@@ -1,15 +1,43 @@
+<style lang='scss'>
+  .flex {
+    display: flex;
+  }
+
+  .input_and_btn {
+    padding: 45px 5%;
+    .el-input {
+      width: 75%;
+      margin-right: 5%;
+    }
+  }
+
+  #start_and_stop_btn {
+    margin-right: auto;
+  }
+</style>
+
 <template>
-  <div>
-    <result-dialog :dialogVisible="dialogVisible" :result="result" @on-close-dialog="close_dialog()"></result-dialog>
-    <div class="flex">
-      <div>
-        <canvas id="canvas"></canvas>
+  <div class="container">
+    <div class="row">
+      <result-dialog :dialogVisible="dialogVisible" :result="result" @on-close-dialog="close_dialog()"></result-dialog>
+      <div class="col-sm-12 col-md-6">
+        <div>
+          <canvas id="canvas"></canvas>
+        </div>
       </div>
-      <div>
-        <input type="text" v-model="element" @keypress.enter="add_element_to_roullet">
-        <button v-if="element_count != 0 && !isStart" @click="start_roullet()">start</button>
-        <button v-if="isStart" @click="on_click_stop_btn()">stop</button>
-        <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
+      <div class="col-sm-12 col-md-6">
+        <div class="col-sm-10 offset-sm-1">
+          <div class="input_and_btn">
+            <div class="flex">
+              <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
+              <div id="start_and_stop_btn">
+                <el-button v-if="element_count != 0 && !isStart" @click="start_roullet()" type="primary" size="mini">start</el-button>
+                <el-button v-if="isStart" @click="on_click_stop_btn()" type="warning" size="mini">stop</el-button>
+              </div>
+            </div>
+            <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -20,6 +48,9 @@
   import colors from '../lib/colors'
   import list from './list'
   import resultDialog from './result_dialog'
+  import 'element-ui/lib/theme-chalk/index.css'
+  import 'bootstrap/dist/css/bootstrap.css'
+  import 'bootstrap-vue/dist/bootstrap-vue.css'
 
   Vue.component('list', list)
   Vue.component('result-dialog', resultDialog)
@@ -28,11 +59,11 @@
     data() {
       return {
         canvas: {
-          width: 600,
-          height: 600
+          width: 450,
+          height: 450
         },
-        center: 300,
-        r: 250,
+        center: 225,
+        r: 200,
         context: null,
         element: "",
         roullet_elements: [],
@@ -183,9 +214,3 @@
     },
   }
 </script>
-
-<style>
-  .flex {
-    display: flex;
-  }
-</style>

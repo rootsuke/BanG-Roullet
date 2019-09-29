@@ -1,18 +1,18 @@
 <template>
   <div id="elements">
-      <div v-for="(e, i) in roullet_elements" :key="i" class="element flex flex-center">
-        <div :style="{'background-color': e.color}" class="label"></div>
-        <div class="title">
-          <input v-if="e.isEdit" v-model="e.title" @keypress.enter="e.isEdit = false" type="text">
-          <div v-else class="title">{{ e.title }}</div>
-        </div>
-        <div v-if="!isStart" class="btn-area">
-          <button @click="e.isEdit = true">編集</button>
-          <button @click="delete_element(i)">削除</button>
-          <button @click="increase_weight(i)"> + </button>
-          <button v-if="e.weight > 1" @click="decrease_weight(i)"> - </button>
-        </div>
+    <div v-for="(e, i) in roullet_elements" :key="i" class="element flex flex-center">
+      <div :style="{'background-color': e.color}" class="label"></div>
+      <div class="title">
+        <el-input v-if="e.isEdit" v-model="e.title" @keypress.enter.native="e.isEdit = false" type="text" size="mini"></el-input>
+        <div v-else class="title">{{ e.title }}</div>
       </div>
+      <div v-if="!isStart" class="btn-area">
+        <span @click="e.isEdit = true" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
+        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
+        <span @click="increase_weight(i)" class="icon plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
+        <span v-if="e.weight > 1" @click="decrease_weight(i)" class="icon minus"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -63,14 +63,27 @@
   }
 </script>
 
-<style>
+<style lang='scss'>
+  .icon {
+    margin-left: 5px;
+    cursor: pointer;
+    :hover {
+      color: aqua;
+    }
+  }
+
+  
+
   li {
     list-style: none;
   }
 
   #elements {
-    margin-top: 20px;
-    width: 400px;
+    margin-top: 10px;
+    padding: 20px;
+    .el-input {
+      width: 100%;
+    }
   }
 
   .flex-center {
@@ -88,10 +101,10 @@
   }
 
   .title {
-    width: 40%;
+    width: 50%;
   }
 
   .btn-area {
-    margin-left: 20px;
+    margin-left: auto;
   }
 </style>

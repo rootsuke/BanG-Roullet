@@ -8,12 +8,7 @@
 </template>
 
 <script>
-  import Vue from 'vue/dist/vue.esm'
-  import { Button, Dialog } from 'element-ui'
   import 'element-ui/lib/theme-chalk/index.css'
-
-  Vue.use(Button)
-  Vue.use(Dialog)
 
   export default {
     props: ["dialogVisible", "result"],
