@@ -4,7 +4,7 @@
   }
 
   .input_and_btn {
-    padding: 45px 5%;
+    padding: 45px 0;
     .el-input {
       width: 75%;
       margin-right: 5%;
@@ -12,7 +12,7 @@
   }
 
   #start_and_stop_btn {
-    margin-right: auto;
+    margin-left: auto;
   }
 </style>
 
@@ -21,12 +21,11 @@
     <div class="row">
       <result-dialog :dialogVisible="dialogVisible" :result="result" @on-close-dialog="close_dialog()"></result-dialog>
       <div class="col-sm-12 col-md-6">
-        <div>
+        <div id="canvas_container">
           <canvas id="canvas"></canvas>
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
-        <div class="col-sm-10 offset-sm-1">
           <div class="input_and_btn">
             <div class="flex">
               <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
@@ -37,7 +36,6 @@
             </div>
             <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet()"></list>
           </div>
-        </div>
       </div>
     </div>
   </div>
@@ -62,8 +60,6 @@
           width: 450,
           height: 450
         },
-        center: 225,
-        r: 200,
         context: null,
         element: "",
         roullet_elements: [],
@@ -76,9 +72,13 @@
     },
 
     mounted() {
+      window.addEventListener('resize',() => { this.resize_canvas() }, false)
+      const width = document.getElementById('canvas_container').clientWidth
+      this.canvas.width = width
+      this.canvas.height = width
       const canvas = document.getElementById('canvas')
-      canvas.width = this.canvas.width
-      canvas.height = this.canvas.height
+      canvas.width = width
+      canvas.height = width
       this.context = canvas.getContext('2d')
       this.init_roullet()
     },
@@ -90,6 +90,14 @@
 
       element_count() {
         return this.roullet_elements.length
+      },
+
+      center() {
+        return this.canvas.width / 2
+      },
+
+      r() {
+        return this.center - 25
       }
     },
 
@@ -104,11 +112,12 @@
       },
 
       draw_pointer() {
+        const c = this.center
         const context = this.context
         context.beginPath()
-        context.moveTo(300, 75)
-        context.lineTo(307, 25)
-        context.lineTo(293, 25)
+        context.moveTo(c, 45)
+        context.lineTo(c+7, 5)
+        context.lineTo(c-7, 5)
         context.closePath()
         context.fillStyle = '#5c5c5c'
         context.fill()
@@ -129,6 +138,20 @@
         this.element = ""
         // ルーレットを描画
         this.draw_roullet()
+      },
+      
+      resize_canvas() {
+        const width = document.getElementById('canvas_container').clientWidth
+        const canvas = document.getElementById('canvas')
+        this.canvas.width = width
+        this.canvas.height = width
+        canvas.width = this.canvas.width
+        canvas.height = this.canvas.height
+        if (this.element_count == 0) {
+          this.init_roullet()
+        } else {
+          this.draw_roullet()
+        }
       },
 
       draw_roullet(offset = 0) {

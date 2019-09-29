@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" title="ルーレットの結果" width="30%">
+  <el-dialog :visible.sync="dialogVisible" title="ルーレットの結果" width="50%">
     <span>{{ result }}</span>
     <span slot="footer" class="dialog-footer">
       <el-button type="primary" @click="close_dialog()">OK</el-button>
