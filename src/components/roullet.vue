@@ -19,7 +19,8 @@
 <template>
   <div class="container">
     <div class="row">
-      <result-dialog :dialogVisible="dialogVisible" :result="result" @on-close-dialog="close_dialog()"></result-dialog>
+      <result-dialog :dialogVisible="show_result_dialog" :result="result" @on-close-dialog="close_result_dialog()"></result-dialog>
+      <destroy-dialog :dialogVisible="show_destroy_dialog" @on-close-dialog="close_destroy_dialog()" @on-confirm="destroy_roullet()"></destroy-dialog>
       <div class="col-sm-12 col-md-6">
         <div id="canvas_container">
           <canvas id="canvas"></canvas>
@@ -31,7 +32,7 @@
             <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
             <div class="flex flex-end">
               <span v-if="show_reload_btn" @click="reload_roullet()" class="icon reload"><i class="fas fa-redo fa-2x"></i></span>
-              <span v-if="show_destroy_btn" @click="destroy_roullet()" class="icon destroy"><i class="fas fa-skull-crossbones fa-2x"></i></span>
+              <span v-if="show_destroy_btn" @click="open_destroy_dialog()" class="icon destroy"><i class="fas fa-skull-crossbones fa-2x"></i></span>
               <span v-if="show_start_btn" @click="start_roullet()" class="icon start"><i class="far fa-play-circle fa-2x"></i></span>
               <span v-if="isStart" @click="on_click_stop_btn()" class="icon stop"><i class="far fa-stop-circle fa-2x"></i></span>
             </div>
@@ -48,12 +49,14 @@
   import colors from '../lib/colors'
   import list from './list'
   import resultDialog from './result_dialog'
+  import destroyDialog from './destroy_dialog'
   import 'element-ui/lib/theme-chalk/index.css'
   import 'bootstrap/dist/css/bootstrap.css'
   import 'bootstrap-vue/dist/bootstrap-vue.css'
 
   Vue.component('list', list)
   Vue.component('result-dialog', resultDialog)
+  Vue.component('destroy-dialog', destroyDialog)
 
   export default {
     data() {
@@ -68,7 +71,8 @@
         isStart: false,
         isSlowdown: false,
         colors: colors(),
-        dialogVisible: false,
+        show_result_dialog: false,
+        show_destroy_dialog: false,
         result: "",
         resize_timer_id: 0,
         roullet_offset: 0
@@ -261,7 +265,7 @@
           const deg_per_el = deg_per_weight * el.weight
           let end_deg = start_deg + deg_per_el
           if (start_deg <= current_deg && current_deg < end_deg) {
-            this.dialogVisible = true
+            this.show_result_dialog = true
             this.result = el.title
             break
           }
@@ -275,8 +279,17 @@
       on_click_stop_btn() {
         this.isSlowdown = true
       },
-      close_dialog() {
-        this.dialogVisible = false
+
+      open_destroy_dialog() {
+        this.show_destroy_dialog = true
+      },
+
+      close_destroy_dialog() {
+        this.show_destroy_dialog = false
+      },
+
+      close_result_dialog() {
+        this.show_result_dialog = false
       }
     },
   }
