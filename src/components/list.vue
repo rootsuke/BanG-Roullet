@@ -6,11 +6,11 @@
         <el-input v-if="e.isEdit" v-model="e.title" @keypress.enter.native="e.isEdit = false" type="text" size="mini"></el-input>
         <div v-else class="title">{{ e.title }}</div>
       </div>
-      <div v-if="!isStart" class="btn-area">
-        <span @click="e.isEdit = true" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
-        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
+      <div class="btn-area" :class="{ disable: isStart }">
+        <span @click="edit(i)" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
         <span @click="increase_weight(i)" class="icon plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
-        <span v-if="e.weight > 1" @click="decrease_weight(i)" class="icon minus"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+        <span @click="decrease_weight(i)" class="icon" :class="{ minus: e.weight > 1 }"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@
 
     methods: {
       delete_element(index) {
+        if (this.isStart) { return }
         const color = this.roullet_elements[index].color
         // 要素の削除
         this.roullet_elements.splice(index, 1)
@@ -42,12 +43,19 @@
         }
       },
 
+      edit(index) {
+        if (this.isStart) { return }
+        this.roullet_elements[index].isEdit = true
+      },
+
       increase_weight(index) {
+        if (this.isStart) { return }
         this.roullet_elements[index].weight ++
         this.redraw_roullet()
       },
 
       decrease_weight(index) {
+        if (this.isStart || this.roullet_elements[index].weight <= 1) { return }
         let weight = this.roullet_elements[index].weight
         if (weight > 1) {
           this.roullet_elements[index].weight --
@@ -64,15 +72,21 @@
 </script>
 
 <style lang='scss'>
-  .icon {
-    margin-left: 5px;
-    cursor: pointer;
-    :hover {
-      color: aqua;
-    }
+  .edit {
+    color: #FFC3DD;
   }
 
-  
+  .plus {
+    color: #7FBBEE;
+  }
+
+  .minus {
+    color: #FFE588;
+  }
+
+  .delete {
+    color: #F67F90;
+  }
 
   li {
     list-style: none;

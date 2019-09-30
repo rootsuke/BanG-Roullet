@@ -1,4 +1,25 @@
 <style lang='scss'>
+  .icon {
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  .reload {
+    color: #CCEEC3
+  }
+
+  .destroy {
+    color: #D499E5;
+  }
+
+  .start {
+    color: #7FD4DD;
+  }
+
+  .stop {
+    color: #FFBBA6;
+  }
+
   .flex {
     display: flex;
   }
@@ -8,7 +29,7 @@
   }
 
   .input_and_btn {
-    padding: 45px 0;
+    padding: 45px 20px;
     .el-input {
       width: 100%;
       margin-right: 5%;
@@ -31,10 +52,10 @@
           <div>
             <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
             <div class="flex flex-end">
-              <span v-if="show_reload_btn" @click="reload_roullet()" class="icon reload"><i class="fas fa-redo fa-2x"></i></span>
-              <span v-if="show_destroy_btn" @click="open_destroy_dialog()" class="icon destroy"><i class="fas fa-skull-crossbones fa-2x"></i></span>
-              <span v-if="show_start_btn" @click="start_roullet()" class="icon start"><i class="far fa-play-circle fa-2x"></i></span>
+              <span @click="reload_roullet()" class="icon" :class="{ reload: can_reload }"><i class="fas fa-redo fa-2x"></i></span>
+              <span @click="open_destroy_dialog()" class="icon" :class="{ destroy: can_destroy }"><i class="fas fa-skull-crossbones fa-2x"></i></span>
               <span v-if="isStart" @click="on_click_stop_btn()" class="icon stop"><i class="far fa-stop-circle fa-2x"></i></span>
+              <span v-else @click="start_roullet()" class="icon" :class="{ start: element_count }"><i class="far fa-play-circle fa-2x"></i></span>
             </div>
           </div>
           <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
@@ -111,15 +132,15 @@
         return this.center - 25
       },
 
-      show_start_btn() {
+      can_start() {
         return this.element_count != 0 && !this.isStart
       },
 
-      show_reload_btn() {
+      can_reload() {
         return this.element_count != 0 && !this.isStart && this.roullet_offset != 0
       },
 
-      show_destroy_btn() {
+      can_destroy() {
         return this.element_count != 0 && !this.isStart
       }
     },
@@ -147,11 +168,13 @@
       },
 
       reload_roullet() {
+        if (!this.can_reload) { return }
         this.roullet_offset = 0
         this.draw_roullet()
       },
 
       destroy_roullet() {
+        if (!this.can_destroy) { return }
         this.roullet_elements = []
         this.colors = colors()
         this.roullet_offset = 0
@@ -222,11 +245,12 @@
         context.lineTo(c+7, 5)
         context.lineTo(c-7, 5)
         context.closePath()
-        context.fillStyle = '#5c5c5c'
+        context.fillStyle = '#6d6d6d'
         context.fill()
       },
 
       start_roullet() {
+        if (!this.can_start) { return }
         let offset = 0
         let speed = 1
         let brake = 1
@@ -281,6 +305,7 @@
       },
 
       open_destroy_dialog() {
+        if (!this.can_destroy) { return }
         this.show_destroy_dialog = true
       },
 
