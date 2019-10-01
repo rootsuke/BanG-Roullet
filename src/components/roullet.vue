@@ -1,6 +1,9 @@
 <style lang='scss'>
   .icon {
     margin-left: 5px;
+  }
+
+  .pointer {
     cursor: pointer;
   }
 
@@ -20,6 +23,10 @@
     color: #FFBBA6;
   }
 
+  .disable {
+    color: #6a6a6a;
+  }
+
   .flex {
     display: flex;
   }
@@ -30,10 +37,15 @@
 
   .input_and_btn {
     padding: 45px 20px;
+    margin-top: 20px;
     .el-input {
       width: 100%;
       margin-right: 5%;
     }
+  }
+
+  #roullet_form {
+    margin-bottom: 10px;
   }
 </style>
 
@@ -52,10 +64,10 @@
           <div>
             <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
             <div class="flex flex-end">
-              <span @click="reload_roullet()" class="icon" :class="{ reload: can_reload }"><i class="fas fa-redo fa-2x"></i></span>
-              <span @click="open_destroy_dialog()" class="icon" :class="{ destroy: can_destroy }"><i class="fas fa-skull-crossbones fa-2x"></i></span>
-              <span v-if="isStart" @click="on_click_stop_btn()" class="icon stop"><i class="far fa-stop-circle fa-2x"></i></span>
-              <span v-else @click="start_roullet()" class="icon" :class="{ start: element_count }"><i class="far fa-play-circle fa-2x"></i></span>
+              <span @click="reload_roullet()" class="icon" :class="reload_btn_class"><i class="fas fa-redo fa-2x"></i></span>
+              <span @click="open_destroy_dialog()" class="icon" :class="destroy_btn_class"><i class="fas fa-skull-crossbones fa-2x"></i></span>
+              <span v-if="isStart" @click="on_click_stop_btn()" class="icon pointer stop"><i class="far fa-stop-circle fa-2x"></i></span>
+              <span v-else @click="start_roullet()" class="icon" :class="start_btn_class"><i class="far fa-play-circle fa-2x"></i></span>
             </div>
           </div>
           <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
@@ -142,6 +154,18 @@
 
       can_destroy() {
         return this.element_count != 0 && !this.isStart
+      },
+
+      reload_btn_class() {
+        return this.can_reload ? ['reload', 'pointer'] : 'disable'
+      },
+
+      destroy_btn_class() {
+        return this.can_destroy ? ['destroy', 'pointer'] : 'disable'
+      },
+
+      start_btn_class() {
+        return this.can_start ? ['start', 'pointer'] : 'disable'
       }
     },
 
@@ -245,7 +269,7 @@
         context.lineTo(c+7, 5)
         context.lineTo(c-7, 5)
         context.closePath()
-        context.fillStyle = '#6d6d6d'
+        context.fillStyle = '#6a6a6a'
         context.fill()
       },
 

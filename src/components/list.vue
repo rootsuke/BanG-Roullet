@@ -7,10 +7,10 @@
         <div v-else class="title">{{ e.title }}</div>
       </div>
       <div class="btn-area" :class="{ disable: isStart }">
-        <span @click="edit(i)" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
-        <span @click="increase_weight(i)" class="icon plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
-        <span @click="decrease_weight(i)" class="icon" :class="{ minus: e.weight > 1 }"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
-        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
+        <span @click="edit(i)" class="icon pointer edit"><i class="far fa-edit fa-lg"></i></span>
+        <span @click="increase_weight(i)" class="icon pointer plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
+        <span @click="decrease_weight(i)" class="icon" :class="e.weight > 1 ? ['minus', 'pointer'] : 'disable'"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+        <span @click="delete_element(i)" class="icon pointer delete"><i class="far fa-trash-alt fa-lg"></i></span>
       </div>
     </div>
   </div>
@@ -93,7 +93,6 @@
   }
 
   #elements {
-    margin-top: 10px;
     padding: 20px;
     .el-input {
       width: 100%;
