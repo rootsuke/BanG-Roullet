@@ -7,10 +7,10 @@
         <div v-else class="title roboto">{{ e.title }}</div>
       </div>
       <div class="btn-area" :class="{ disable: isStart }">
-        <span @click="edit(i)" class="icon pointer edit"><i class="far fa-edit fa-lg"></i></span>
-        <span @click="increase_weight(i)" class="icon pointer plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
+        <span @click="edit(i)" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
+        <span @click="increase_weight(i)" class="icon plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
         <span @click="decrease_weight(i)" class="icon" :class="decrease_btn_class(i)"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
-        <span @click="delete_element(i)" class="icon pointer delete"><i class="far fa-trash-alt fa-lg"></i></span>
+        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
       </div>
     </div>
   </div>
@@ -68,7 +68,7 @@
       },
 
       decrease_btn_class(index) {
-        return this.roullet_elements[index].weight > 1 ? ['minus', 'pointer'] : 'disable'
+        return this.roullet_elements[index].weight > 1 ? 'minus' : 'disable'
       }
     },
 
@@ -98,9 +98,6 @@
 
   #elements {
     padding: 20px;
-    .el-input {
-      width: 100%;
-    }
   }
 
   .flex-center {
@@ -108,17 +105,29 @@
   }
 
   .element {
-    height: 25px;
+    padding: 5px 0;
   }
 
   .label {
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
     margin-right: 10px;
   }
 
   .title {
     width: 50%;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    input {
+      font-size: 15px;
+      padding: 0 5px;
+      letter-spacing: 0.5px;
+      &:hover, &:focus {
+        border: 1px solid #DDDDDD;
+        box-shadow: 0 0 1px 1px #DDDDDD;
+      }
+    }
   }
 
   .btn-area {

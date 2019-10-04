@@ -8,7 +8,7 @@
   export default { }
 </script>
 
-<style>
+<style lang='scss'>
   #header {
     width: 100%;
     margin-bottom: 30px;
@@ -16,6 +16,6 @@
     font-size: 30px;
     letter-spacing: 0.5px;
     color: white;
-    background-color: #ff638f;
+    background-color: $bang-dream;
   }
 </style>

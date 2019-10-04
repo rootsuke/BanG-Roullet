@@ -10,14 +10,15 @@
 
   .icon {
     margin-left: 5px;
-  }
-
-  .pointer {
     cursor: pointer;
   }
 
+  .fa-2x {
+    margin-left: 5px;
+  }
+
   .reload {
-    color: #CCEEC3
+    color: #CCEEC3;
   }
 
   .destroy {
@@ -33,7 +34,12 @@
   }
 
   .disable {
-    color: #6a6a6a;
+    color: $default;
+    cursor: default;
+    span {
+      color: $default;
+      cursor: default;
+    }
   }
 
   .flex {
@@ -55,7 +61,30 @@
 
   #roullet_form {
     margin-bottom: 10px;
+    font-size: 18px;
   }
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 5%;
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    color: $default;
+  }
+  input {
+    width: 100%;
+    padding-left: 40px;
+    letter-spacing: 1px;
+  }
+  input:hover, input:focus {
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 0 2px 1px #DDDDDD;
+  }
+} 
 </style>
 
 <template>
@@ -71,7 +100,10 @@
       <div class="col-sm-12 col-md-6">
         <div class="input_and_btn">
           <div>
-            <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" id="roullet_form" placeholder="ルーレットの値を入力" size="mini"></el-input>
+            <div class="input-wrapper">
+              <el-input type="text" v-model="element" @keypress.enter.native="add_element_to_roullet()" class="roboto" id="roullet_form"></el-input>
+              <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
+            </div>
             <div class="flex flex-end">
               <span @click="reload_roullet()" class="icon" :class="reload_btn_class"><i class="fas fa-redo fa-2x"></i></span>
               <span @click="open_destroy_dialog()" class="icon" :class="destroy_btn_class"><i class="fas fa-skull-crossbones fa-2x"></i></span>
@@ -166,15 +198,15 @@
       },
 
       reload_btn_class() {
-        return this.can_reload ? ['reload', 'pointer'] : 'disable'
+        return this.can_reload ? 'reload' : 'disable'
       },
 
       destroy_btn_class() {
-        return this.can_destroy ? ['destroy', 'pointer'] : 'disable'
+        return this.can_destroy ? 'destroy' : 'disable'
       },
 
       start_btn_class() {
-        return this.can_start ? ['start', 'pointer'] : 'disable'
+        return this.can_start ? 'start' : 'disable'
       }
     },
 
