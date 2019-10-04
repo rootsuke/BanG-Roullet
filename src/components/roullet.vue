@@ -1,4 +1,13 @@
 <style lang='scss'>
+  .oswald {
+    font-family: 'Oswald', sans-serif;
+    font-style: italic;
+  }
+
+  .roboto {
+    font-family: 'Roboto', sans-serif;
+  }
+
   .icon {
     margin-left: 5px;
   }

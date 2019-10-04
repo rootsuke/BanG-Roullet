@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <h4>BanG Roullet!</h4>
+    <span class="oswald">BanG Roullet!</span>
   </div>
 </template>
 
@@ -12,11 +12,10 @@
   #header {
     width: 100%;
     margin-bottom: 30px;
-    padding: 10px 30px;
-    background-color: #ff638f;
-  }
-
-  h4 {
+    padding: 5px 5%;
+    font-size: 30px;
+    letter-spacing: 0.5px;
     color: white;
+    background-color: #ff638f;
   }
 </style>

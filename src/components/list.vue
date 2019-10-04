@@ -4,12 +4,12 @@
       <div :style="{'background-color': e.color}" class="label"></div>
       <div class="title">
         <el-input v-if="e.isEdit" v-model="e.title" @keypress.enter.native="e.isEdit = false" type="text" size="mini"></el-input>
-        <div v-else class="title">{{ e.title }}</div>
+        <div v-else class="title roboto">{{ e.title }}</div>
       </div>
       <div class="btn-area" :class="{ disable: isStart }">
         <span @click="edit(i)" class="icon pointer edit"><i class="far fa-edit fa-lg"></i></span>
         <span @click="increase_weight(i)" class="icon pointer plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
-        <span @click="decrease_weight(i)" class="icon" :class="e.weight > 1 ? ['minus', 'pointer'] : 'disable'"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+        <span @click="decrease_weight(i)" class="icon" :class="decrease_btn_class(i)"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
         <span @click="delete_element(i)" class="icon pointer delete"><i class="far fa-trash-alt fa-lg"></i></span>
       </div>
     </div>
@@ -65,6 +65,10 @@
 
       redraw_roullet() {
         this.$emit('elements-edited')
+      },
+
+      decrease_btn_class(index) {
+        return this.roullet_elements[index].weight > 1 ? ['minus', 'pointer'] : 'disable'
       }
     },
 
