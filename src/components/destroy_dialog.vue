@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" width="50%">
+  <el-dialog :visible.sync="dialogVisible" :show-close="false" width="50%">
     <div id="confirm_msg">
       ルーレットを初期化してよろしいですか？
     </div>

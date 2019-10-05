@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" title="" width="50%">
+  <el-dialog :visible.sync="dialogVisible" :show-close="false" width="50%">
     <div id="result">{{ result }}</div>
     <span slot="footer" class="dialog-footer">
       <button @click="close_dialog()" class="btn btn-poppin-party">OK</button>
