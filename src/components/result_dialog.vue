@@ -1,6 +1,9 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" :show-close="false" width="50%">
-    <div id="result">{{ result }}</div>
+    <div id="result" class="flex flex-center">
+      <div :style="{'background-color': result.color}" class="label"></div>
+      <div>{{ result.title }}</div>
+    </div>
     <span slot="footer" class="dialog-footer">
       <button @click="close_dialog()" class="btn btn-poppin-party">OK</button>
     </span>
@@ -27,5 +30,6 @@
     margin: 25px 0 15px 0;
     text-align: center;
     font-size: 26px;
+    justify-content: center;
   }
 </style>

@@ -58,7 +58,7 @@
         colors: colors(),
         show_result_dialog: false,
         show_destroy_dialog: false,
-        result: "",
+        result: {},
         resize_timer_id: 0,
         roullet_offset: 0
       }
@@ -266,7 +266,7 @@
           let end_deg = start_deg + deg_per_el
           if (start_deg <= current_deg && current_deg < end_deg) {
             this.show_result_dialog = true
-            this.result = el.title
+            this.result = { title: el.title, color: el.color }
             break
           }
           start_deg += deg_per_el

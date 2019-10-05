@@ -98,10 +98,6 @@
     padding: 20px;
   }
 
-  .flex-center {
-    align-items: center;
-  }
-
   .element {
     height: 30px;
     padding: 5px 0;
