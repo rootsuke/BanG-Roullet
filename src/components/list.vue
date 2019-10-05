@@ -76,22 +76,6 @@
 </script>
 
 <style lang='scss'>
-  .edit {
-    color: #FFC3DD;
-  }
-
-  .plus {
-    color: #7FBBEE;
-  }
-
-  .minus {
-    color: $hello-happy-world;
-  }
-
-  .delete {
-    color: #F67F90;
-  }
-
   li {
     list-style: none;
   }

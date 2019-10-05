@@ -9,7 +9,9 @@ module.exports = {
     oneOfsMap.forEach(item => {
       item.use('sass-resources-loader')
           .loader('sass-resources-loader')
-          .options({ resources: './src/assets/style/colors.scss' })
+          .options({ resources: ['./src/assets/scss/colors.scss',
+                                 './src/assets/scss/components.scss',
+                                 './src/assets/scss/style.scss'] })
           .end();
     });
   }

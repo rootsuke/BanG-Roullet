@@ -1,92 +1,3 @@
-<style lang='scss'>
-  .oswald {
-    font-family: 'Oswald', sans-serif;
-    font-style: italic;
-  }
-
-  .roboto {
-    font-family: 'Roboto', sans-serif;
-  }
-
-  .icon {
-    margin-left: 5px;
-    cursor: pointer;
-  }
-
-  .fa-2x {
-    margin-left: 5px;
-  }
-
-  .reload {
-    color: $pastel-palettes;
-  }
-
-  .destroy {
-    color: #D499E5;
-  }
-
-  .start {
-    color: #7FD4DD;
-  }
-
-  .stop {
-    color: #FFBBA6;
-  }
-
-  .disable {
-    color: $default;
-    cursor: default;
-    span {
-      color: $default;
-      cursor: default;
-    }
-  }
-
-  .flex {
-    display: flex;
-  }
-
-  .flex-end {
-    justify-content: flex-end;
-  }
-
-  .input_and_btn {
-    padding: 45px 20px;
-    margin-top: 20px;
-    .el-input {
-      width: 100%;
-      margin-right: 5%;
-    }
-  }
-
-  #roullet_form {
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-
-.input-wrapper {
-  position: relative;
-  width: 100%;
-  margin-right: 5%;
-  i {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 12px;
-    color: $default;
-  }
-  input {
-    width: 100%;
-    padding-left: 40px;
-    letter-spacing: 1px;
-  }
-  input:hover, input:focus {
-    border: 1px solid #DDDDDD;
-    box-shadow: 0 0 2px 1px #DDDDDD;
-  }
-} 
-</style>
-
 <template>
   <div class="container">
     <div class="row">
@@ -106,7 +17,7 @@
             </div>
             <div class="flex flex-end">
               <span @click="reload_roullet()" class="icon" :class="reload_btn_class"><i class="fas fa-redo fa-2x"></i></span>
-              <span @click="open_destroy_dialog()" class="icon" :class="destroy_btn_class"><i class="fas fa-skull-crossbones fa-2x"></i></span>
+              <span @click="open_destroy_dialog()" class="icon" :class="destroy_btn_class"><i class="fas fa-bomb fa-2x"></i></span>
               <span v-if="isStart" @click="on_click_stop_btn()" class="icon pointer stop"><i class="far fa-stop-circle fa-2x"></i></span>
               <span v-else @click="start_roullet()" class="icon" :class="start_btn_class"><i class="far fa-play-circle fa-2x"></i></span>
             </div>
@@ -384,3 +295,41 @@
     },
   }
 </script>
+
+<style lang='scss'>
+  .input_and_btn {
+    padding: 45px 20px;
+    margin-top: 20px;
+    .el-input {
+      width: 100%;
+      margin-right: 5%;
+    }
+  }
+
+  #roullet_form {
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 5%;
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    color: $default;
+  }
+  input {
+    width: 100%;
+    padding-left: 40px;
+    letter-spacing: 1px;
+  }
+  input:hover, input:focus {
+    border: 1px solid #DDDDDD;
+    box-shadow: 0 0 2px 1px #DDDDDD;
+  }
+} 
+</style>

@@ -1,0 +1,109 @@
+.icon {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.fa-2x {
+  margin-left: 5px;
+}
+
+.reload {
+  color: $pastel-palettes;
+}
+
+.destroy {
+  color: #DD7F99;
+}
+
+.start {
+  color: #7FD4DD;
+}
+
+.stop {
+  color: #FFBBA6;
+}
+.edit {
+  color: #FFC3DD;
+}
+
+.plus {
+  color: #7FBBEE;
+}
+
+.minus {
+  color: $hello-happy-world;
+}
+
+.delete {
+  color: #F67F90;
+}
+
+.disable {
+  color: $default;
+  cursor: default;
+  span {
+    color: $default;
+    cursor: default;
+  }
+}
+
+.el-dialog__header {
+  padding: 10px 20px;
+  height: 45px;
+  background-color: $poppin-party;
+  .el-dialog__title {
+    color: white;
+  }
+  .el-dialog__headerbtn {
+    top: 10px;
+    .el-dialog__close {
+      color: white;
+    }
+  }
+}
+
+.btn {
+  display: inline-block;
+  line-height: 1;
+  white-space: nowrap;
+  text-align: center;
+  box-sizing: border-box;
+  outline: 0;
+  margin: 0;
+  transition: .1s;
+  font-weight: 500;
+  padding: 12px 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  &:hover {
+    opacity: 0.8;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.btn-poppin-party {
+  color: white;
+  background-color: $poppin-party;
+  border-color: $poppin-party;
+  &:hover {
+    color: white;
+  }
+}
+
+.btn-after-glow {
+  color: white;
+  background-color: $after-glow;
+  border-color: $after-glow;
+  &:hover {
+    color: white;
+  }
+}
+
+.btn-default {
+  border: 1px solid #DCDFE6;
+  &:hover {
+    color: $default;
+  }
+}

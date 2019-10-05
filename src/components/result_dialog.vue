@@ -28,19 +28,4 @@
     text-align: center;
     font-size: 26px;
   }
-
-  .el-dialog__header {
-    padding: 10px 20px;
-    height: 45px;
-    background-color: $poppin-party;
-    .el-dialog__title {
-      color: white;
-    }
-    .el-dialog__headerbtn {
-      top: 10px;
-      .el-dialog__close {
-        color: white;
-      }
-    }
-  }
 </style>
