@@ -18,7 +18,7 @@
   }
 
   .reload {
-    color: #CCEEC3;
+    color: $pastel-palettes;
   }
 
   .destroy {

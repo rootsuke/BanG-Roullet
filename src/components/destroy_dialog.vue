@@ -1,11 +1,11 @@
 <template>
   <el-dialog :visible.sync="dialogVisible" width="50%">
-    <div>
-      ルーレットを初期化してもよろしいですか？
+    <div id="confirm_msg">
+      ルーレットを初期化してよろしいですか？
     </div>
     <span slot="footer" class="dialog-footer">
-      <el-button @click="close_dialog()">キャンセル</el-button>
-      <el-button type="danger" @click="confirm()">OK</el-button>
+      <button @click="close_dialog()" class="btn btn-default">キャンセル</button>
+      <button @click="confirm()" class="btn btn-after-glow">OK</button>
     </span>
   </el-dialog>
 </template>
@@ -31,5 +31,10 @@
 </script>
 
 <style>
+  #confirm_msg {
+    margin: 25px 0 15px 0;
+    text-align: center;
+    font-size: 16px;
+  }
   
 </style>

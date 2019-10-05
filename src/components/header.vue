@@ -16,6 +16,6 @@
     font-size: 30px;
     letter-spacing: 0.5px;
     color: white;
-    background-color: $bang-dream;
+    background-color: $poppin-party;
   }
 </style>

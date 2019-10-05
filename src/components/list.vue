@@ -85,7 +85,7 @@
   }
 
   .minus {
-    color: #FFE588;
+    color: $hello-happy-world;
   }
 
   .delete {
