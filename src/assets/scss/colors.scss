@@ -1,6 +1,65 @@
-$default:           #6a6a6a;
-$poppin-party:      #ff638f;
-$after-glow:        #f34755;
-$pastel-palettes:   #9cf1de;
+$default:           #9E9E9E;
+
+$poppin-party:      #FF638F;
+$after-glow:        #F86471;
+$pastel-palettes:   #9CF1DE;
 $roselia:           #6670ED;
 $hello-happy-world: #FFE05C;
+
+$kasumi:            #FFBBA6;
+$otae:              #7FBBEE;
+$rimi:              #FFAADD;
+$saya:              #FFE588;
+$chomama:           #D4B2EE;
+$red_mesh:          #F67F90;
+$bread_jankie:      #7FE5D4;
+$himari:            #FFCCCC;
+$soiya:             #DD7F99;
+$tsugu:             #FFF6C3;
+$maruyama:          #FFC3DD;
+$runnnn:            #AAEEF6;
+$chisato:           #FFF6D4;
+$huhehe:            #CCEEC3;
+$bushidoooooo:      #EEDDFF;
+$nyaaan_chan:       #C388C3;
+$potato:            #7FD4DD;
+$risa:              #EE907F;
+$ako:               #EE7FC3;
+$rinko:             #DDDDDD;
+$kokoro:            #FFF690;
+$hakanai:           #D499E5;
+$hagu:              #FFCC90;
+$hueee:             #A1EEFF;
+$girl_in_michelle:  #84B1CD;
+
+.reload {
+  color: $hagu;
+}
+
+.destroy {
+  color: $soiya;
+}
+
+.start {
+  color: $bread_jankie;
+}
+
+.stop {
+  color: $red_mesh;
+}
+
+.edit {
+  color: $maruyama;
+}
+
+.plus {
+  color: $otae;
+}
+
+.minus {
+  color: $hello-happy-world;
+}
+
+.delete {
+  color: $red_mesh;
+}

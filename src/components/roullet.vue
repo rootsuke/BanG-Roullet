@@ -16,10 +16,10 @@
               <i class="fas fa-pencil-alt fa-lg" aria-hidden="true"></i>
             </div>
             <div class="flex flex-end">
-              <span @click="reload_roullet()" class="icon" :class="reload_btn_class"><i class="fas fa-redo fa-2x"></i></span>
-              <span @click="open_destroy_dialog()" class="icon" :class="destroy_btn_class"><i class="fas fa-bomb fa-2x"></i></span>
-              <span v-if="isStart" @click="on_click_stop_btn()" class="icon pointer stop"><i class="far fa-stop-circle fa-2x"></i></span>
-              <span v-else @click="start_roullet()" class="icon" :class="start_btn_class"><i class="far fa-play-circle fa-2x"></i></span>
+              <span @click="reload_roullet()" :class="['icon', reload_btn_class]"><i class="fas fa-redo fa-2x"></i></span>
+              <span @click="open_destroy_dialog()" :class="['icon', destroy_btn_class]"><i class="fas fa-bomb fa-2x"></i></span>
+              <span v-if="isStart" @click="on_click_stop_btn()" class="icon stop able"><i class="far fa-stop-circle fa-2x"></i></span>
+              <span v-else @click="start_roullet()" :class="['icon', start_btn_class]"><i class="far fa-play-circle fa-2x"></i></span>
             </div>
           </div>
           <list :roullet_elements="roullet_elements" :isStart="isStart" :colors="colors" @elements-edited="draw_roullet(roullet_offset)"></list>
@@ -109,15 +109,15 @@
       },
 
       reload_btn_class() {
-        return this.can_reload ? 'reload' : 'disable'
+        return this.can_reload ? ['reload', 'able'] : 'unable'
       },
 
       destroy_btn_class() {
-        return this.can_destroy ? 'destroy' : 'disable'
+        return this.can_destroy ? ['destroy', 'able'] : 'unable'
       },
 
       start_btn_class() {
-        return this.can_start ? 'start' : 'disable'
+        return this.can_start ? ['start', 'able'] : 'unable'
       }
     },
 
@@ -310,26 +310,4 @@
     margin-bottom: 10px;
     font-size: 18px;
   }
-
-.input-wrapper {
-  position: relative;
-  width: 100%;
-  margin-right: 5%;
-  i {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 12px;
-    color: $default;
-  }
-  input {
-    width: 100%;
-    padding-left: 40px;
-    letter-spacing: 1px;
-  }
-  input:hover, input:focus {
-    border: 1px solid #DDDDDD;
-    box-shadow: 0 0 2px 1px #DDDDDD;
-  }
-} 
 </style>

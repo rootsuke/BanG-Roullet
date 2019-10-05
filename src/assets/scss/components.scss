@@ -7,38 +7,19 @@
   margin-left: 5px;
 }
 
-.reload {
-  color: $pastel-palettes;
+.able {
+  &:hover {
+    opacity: 0.7;
+  }
 }
 
-.destroy {
-  color: #DD7F99;
+.able-small {
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
-.start {
-  color: #7FD4DD;
-}
-
-.stop {
-  color: #FFBBA6;
-}
-.edit {
-  color: #FFC3DD;
-}
-
-.plus {
-  color: #7FBBEE;
-}
-
-.minus {
-  color: $hello-happy-world;
-}
-
-.delete {
-  color: #F67F90;
-}
-
-.disable {
+.unable {
   color: $default;
   cursor: default;
   span {
@@ -107,3 +88,25 @@
     color: $default;
   }
 }
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  margin-right: 5%;
+  i {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 12px;
+    color: $default;
+  }
+  input {
+    width: 100%;
+    padding-left: 40px;
+    letter-spacing: 1px;
+  }
+  input:hover, input:focus {
+    border: 1px solid $rinko;
+    box-shadow: 0 0 2px 1px $rinko;
+  }
+} 

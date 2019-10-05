@@ -6,11 +6,11 @@
         <el-input v-if="e.isEdit" v-model="e.title" @keypress.enter.native="e.isEdit = false" type="text" size="mini"></el-input>
         <div v-else class="title roboto">{{ e.title }}</div>
       </div>
-      <div class="btn-area" :class="{ disable: isStart }">
-        <span @click="edit(i)" class="icon edit"><i class="far fa-edit fa-lg"></i></span>
-        <span @click="increase_weight(i)" class="icon plus"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
-        <span @click="decrease_weight(i)" class="icon" :class="decrease_btn_class(i)"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
-        <span @click="delete_element(i)" class="icon delete"><i class="far fa-trash-alt fa-lg"></i></span>
+      <div class="btn-area">
+        <span @click="edit(i)" :class="['icon', edit_btn_class]"><i class="far fa-edit fa-lg"></i></span>
+        <span @click="increase_weight(i)" :class="['icon', increase_btn_class]"><i class="far fa-arrow-alt-circle-up fa-lg"></i></span>
+        <span @click="decrease_weight(i)" :class="['icon', decrease_btn_class(i)]"><i class="far fa-arrow-alt-circle-down fa-lg"></i></span>
+        <span @click="delete_element(i)" :class="['icon', delete_btn_class]"><i class="far fa-trash-alt fa-lg"></i></span>
       </div>
     </div>
   </div>
@@ -23,6 +23,20 @@
     data() {
       return {
         isEdit: false
+      }
+    },
+
+    computed: {
+      edit_btn_class() {
+        return this.isStart ? 'unable' : ['edit', 'able-small']
+      },
+
+      increase_btn_class() {
+        return this.isStart ? 'unable' : ['plus', 'able-small']
+      },
+
+      delete_btn_class() {
+        return this.isStart ? 'unable' : ['delete', 'able-small']
       }
     },
 
@@ -55,8 +69,8 @@
       },
 
       decrease_weight(index) {
-        if (this.isStart || this.roullet_elements[index].weight <= 1) { return }
         let weight = this.roullet_elements[index].weight
+        if (this.isStart || weight <= 1) { return }
         if (weight > 1) {
           this.roullet_elements[index].weight --
         }
@@ -68,7 +82,7 @@
       },
 
       decrease_btn_class(index) {
-        return this.roullet_elements[index].weight > 1 ? 'minus' : 'disable'
+        return this.isStart || this.roullet_elements[index].weight <= 1 ? 'unable' : ['minus', 'able-small']
       }
     },
 
@@ -89,6 +103,7 @@
   }
 
   .element {
+    height: 30px;
     padding: 5px 0;
   }
 
