@@ -5,6 +5,7 @@ services:
     build: .
     ports:
       - "8080:8080"
+      - "9005:9005"
     volumes:
       - .:/app
     stdin_open: true
