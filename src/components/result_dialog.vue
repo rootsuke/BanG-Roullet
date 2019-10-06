@@ -1,5 +1,9 @@
 <template>
-  <el-dialog :visible.sync="dialogVisible" :show-close="false" width="50%">
+  <el-dialog :visible.sync="dialogVisible" 
+             :show-close="false"
+             :close-on-click-modal="false"
+             :close-on-press-escape="false"
+             width="50%">
     <div id="result" class="flex flex-center">
       <div :style="{'background-color': result.color}" class="label"></div>
       <div>{{ result.title }}</div>
