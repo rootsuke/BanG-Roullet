@@ -205,6 +205,7 @@
           context.beginPath()
           context.moveTo(center, center)
           context.fillStyle = el.color
+          // arc(x軸の中心, y軸の中心, 半径, 円弧の始まりのラジアン角, 円弧の終わりのラジアン角)
           context.arc(center, center, this.r, offset / 180 * Math.PI, (offset + deg_per_el) / 180 * Math.PI, false)
           context.fill()
           // 次のルーレットの要素を描画する始点を更新
@@ -234,8 +235,10 @@
 
         let roullet = setInterval(() => {
           if (this.isSlowdown) {
+            // スピードが下がるほどブレーキが強くなる
             brake += 1 / speed
           }
+          // ブレーキが強くなるほどスピードが下がる
           speed = 55 / brake
           offset += speed
           this.draw_roullet(offset)
@@ -249,6 +252,7 @@
       },
 
       stop_roullet(offset) {
+        // ルーレットが何度回転したか求める
         const current_deg = 360 - (offset % 360)
         // 完全に停止してから結果を表示する
         setTimeout(() => {
@@ -264,6 +268,8 @@
           const el = this.roullet_elements[i]
           const deg_per_el = deg_per_weight * el.weight
           let end_deg = start_deg + deg_per_el
+
+          // 当たった要素を求める処理
           if (start_deg <= current_deg && current_deg < end_deg) {
             this.show_result_dialog = true
             this.result = { title: el.title, color: el.color }

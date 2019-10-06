@@ -51,8 +51,7 @@
         this.colors.unshift(color)
 
         if (len > 0) {
-          // ルーレットを描画し直す
-          // 最後の要素を削除するときはそのままにしておく
+          // ルーレットに要素が残っていれば描画し直す
           this.redraw_roullet()
         }
       },
