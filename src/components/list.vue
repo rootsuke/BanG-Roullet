@@ -1,10 +1,10 @@
 <template>
   <div id="elements">
     <div v-for="(e, i) in roullet_elements" :key="i" class="element flex flex-center">
-      <div :style="{'background-color': e.color}" class="label"></div>
-      <div class="title">
+      <div class="title flex flex-center">
+        <div :style="{'background-color': e.color}" class="label"></div>
         <el-input v-if="e.isEdit" v-model="e.title" @keypress.enter.native="e.isEdit = false" type="text" size="mini"></el-input>
-        <div v-else class="title roboto">{{ e.title }}</div>
+        <div v-else class="roboto">{{ e.title }}</div>
       </div>
       <div class="btn-area">
         <span @click="edit(i)" :class="['icon', edit_btn_class]"><i class="far fa-edit fa-lg"></i></span>
@@ -99,8 +99,8 @@
   }
 
   .element {
-    height: 30px;
     padding: 5px 0;
+    flex-wrap: wrap;
   }
 
   .label {
@@ -108,12 +108,13 @@
     height: 18px;
     border-radius: 50%;
     margin-right: 10px;
+    flex: none;
   }
 
   .title {
-    width: 50%;
     font-size: 18px;
     letter-spacing: 0.5px;
+    flex: auto;
     input {
       font-size: 15px;
       padding: 0 5px;
@@ -127,5 +128,6 @@
 
   .btn-area {
     margin-left: auto;
+    flex: none;
   }
 </style>

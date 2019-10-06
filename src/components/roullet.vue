@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">
       <result-dialog :dialogVisible="show_result_dialog" :result="result" @on-close-dialog="close_result_dialog()"></result-dialog>
       <destroy-dialog :dialogVisible="show_destroy_dialog" @on-close-dialog="close_destroy_dialog()" @on-confirm="destroy_roullet()"></destroy-dialog>
@@ -301,7 +301,6 @@
     padding: 45px 20px;
     margin-top: 20px;
     .el-input {
-      width: 100%;
       margin-right: 5%;
     }
   }
