@@ -2,8 +2,7 @@
   <el-dialog :visible.sync="dialogVisible" 
              :show-close="false"
              :close-on-click-modal="false"
-             :close-on-press-escape="false"
-             width="50%">
+             :close-on-press-escape="false">
     <div id="result" class="flex flex-center">
       <div :style="{'background-color': result.color}" class="label"></div>
       <div>{{ result.title }}</div>
@@ -33,7 +32,7 @@
   #result {
     margin: 25px 0 15px 0;
     text-align: center;
-    font-size: 26px;
+    font-size: 24px;
     justify-content: center;
   }
 </style>

@@ -304,8 +304,7 @@
 
 <style lang='scss'>
   .input_and_btn {
-    padding: 45px 20px;
-    margin-top: 20px;
+    padding: 40px 20px;
     .el-input {
       margin-right: 5%;
     }

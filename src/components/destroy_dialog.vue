@@ -2,11 +2,8 @@
   <el-dialog :visible.sync="dialogVisible"
              :show-close="false"
              :close-on-click-modal="false"
-             :close-on-press-escape="false"
-             width="50%">
-    <div id="confirm_msg">
-      ルーレットを初期化してよろしいですか？
-    </div>
+             :close-on-press-escape="false">
+    <div id="confirm_msg">ルーレットを初期化してよろしいですか？</div>
     <span slot="footer" class="dialog-footer">
       <button @click="close_dialog()" class="btn btn-default">キャンセル</button>
       <button @click="confirm()" class="btn btn-after-glow">OK</button>
