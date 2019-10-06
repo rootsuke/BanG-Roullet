@@ -71,9 +71,7 @@
       decrease_weight(index) {
         let weight = this.roullet_elements[index].weight
         if (this.isStart || weight <= 1) { return }
-        if (weight > 1) {
-          this.roullet_elements[index].weight --
-        }
+        this.roullet_elements[index].weight --
         this.redraw_roullet()
       },
 
