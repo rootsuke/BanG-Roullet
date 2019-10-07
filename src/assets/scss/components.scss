@@ -118,4 +118,22 @@
     border: 1px solid $rinko;
     box-shadow: 0 0 2px 1px $rinko;
   }
-} 
+}
+
+.el-dropdown-menu__item {
+  font-size: 12px;
+  color: $default;
+  &:hover, &:focus, &:not(.is-disabled):hover {
+    color: $default;
+    background-color: #F5F5F5;
+    text-decoration: underline;
+  }
+}
+
+.twitter_link {
+  display: block;
+  color: $default;
+  &:hover {
+    color: $default;
+  }
+}
